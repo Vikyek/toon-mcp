@@ -1,119 +1,70 @@
-# TOON MCP Server
+# ⚡ TOON MCP Server (`toon-mcp`)
 
-**Token-Optimized Object Notation** for efficient AI context management.
+**Token-Optimized Object Notation (TOON)** FastMCP Server in Pure Python for efficient AI context management and LLM payload compression.
 
-## Overview
+---
 
-TOON-MCP is a Model Context Protocol server that automatically converts verbose JSON structures into Token-Optimized Object Notation (TOON), reducing token consumption in AI-assisted development workflows by up to 60%.
+## 🚀 Overview
 
-## Features
+`toon-mcp` is a lightweight, zero-node Model Context Protocol (MCP) server written entirely in Python. It automatically converts verbose JSON structures into **Token-Optimized Object Notation (TOON)**, achieving up to 60% token reduction in AI agent and tool-call contexts.
 
-- **Smart Compression**: Automatic detection of patterns in JSON data
-- **Schema-Based Encoding**: Efficient representation of arrays with consistent schemas
-- **Key Abbreviation**: Common keys are automatically abbreviated
-- **Reference System**: Repeated structures are referenced to avoid duplication
-- **MCP Integration**: Seamless integration with Claude and other MCP clients
-- **Round-Trip Conversion**: Lossless conversion between JSON and TOON
+> **Credits & Acknowledgments**: TOON format specification and concept inspired by [`aj-geddes/toon-context-mcp`](https://github.com/aj-geddes/toon-context-mcp). This repository provides a native Python port and FastMCP stdio server optimized for Antigravity (AGY) agents, Arch Linux environments, and resource-constrained environments.
 
-## Installation
+---
 
+## ✨ Features
+
+- **35–60% Payload Compression**: Reduces context window consumption on large structured JSON data.
+- **Smart Pattern Detection**: Automatically identifies schema patterns, array types, and string redundancies.
+- **Key Abbreviation & Reference System**: Automatically abbreviates common keys and deduplicates recurring objects.
+- **Pure Python Execution**: Zero Node.js / `node_modules` overhead — executes in under 50ms via standard Python virtualenvs.
+- **Lossless Conversion**: Full round-trip conversion (`convert_to_toon` <-> `convert_to_json`).
+
+---
+
+## 🛠️ Installation
+
+### Standard Python Install
 ```bash
-pip install -e .
+pip install .
 ```
 
-## Usage
+### Isolated Virtual Environment (Recommended for MCP Agents)
+```bash
+python3 -m venv ~/.local/share/toon-venv
+~/.local/share/toon-venv/bin/pip install -e .
+```
 
-### As MCP Server
+---
 
-Add to your MCP settings:
+## 💻 Integration with MCP Clients
+
+Add to your `mcp_config.json`:
 
 ```json
 {
   "mcpServers": {
     "toon": {
-      "command": "python",
-      "args": ["-m", "src.server"]
+      "command": "/usr/bin/toon-mcp-server",
+      "args": []
     }
   }
 }
 ```
 
-### Programmatic Usage
+---
 
-```python
-from src.toon_converter import convert_json_to_toon, convert_toon_to_json
+## 🧰 MCP Tools Provided
 
-# Convert JSON to TOON
-json_data = {"id": 123, "name": "Test", "type": "user"}
-toon_format = convert_json_to_toon(json_data)
+- `convert_to_toon`: Converts JSON data into TOON format.
+- `convert_to_json`: Restores TOON format back to standard JSON.
+- `analyze_patterns`: Analyzes JSON payloads to detect potential compression ratios.
+- `get_compression_strategy`: Returns the optimal compression strategy for a given data structure.
+- `calculate_savings`: Computes exact character and token savings.
+- `batch_convert`: Batch converts lists of JSON objects concurrently.
 
-# Convert back to JSON
-original_json = convert_toon_to_json(toon_format)
-```
+---
 
-## TOON Format
+## 📜 License
 
-TOON uses several techniques to reduce token consumption:
-
-1. **Key Abbreviation**: Common keys like `id`, `name`, `type` are shortened
-2. **Schema Compression**: Arrays of similar objects use schema-based encoding
-3. **Value Optimization**: `null` → `~`, `true` → `T`, `false` → `F`
-4. **Reference System**: Repeated structures are referenced
-
-### Example
-
-**Original JSON** (98 characters):
-```json
-{
-  "id": 123,
-  "name": "John Doe",
-  "type": "user",
-  "status": "active"
-}
-```
-
-**TOON Format** (62 characters, 37% reduction):
-```json
-{"_toon":"1.0","d":{"i":123,"n":"John Doe","t":"user","s":"active"}}
-```
-
-## MCP Tools
-
-The server provides several tools:
-
-- `convert_to_toon`: Convert JSON to TOON format
-- `convert_to_json`: Convert TOON back to JSON
-- `analyze_patterns`: Analyze JSON and detect optimization patterns
-- `get_compression_strategy`: Get optimal compression strategy
-- `calculate_savings`: Calculate token savings
-- `batch_convert`: Batch convert multiple JSON objects
-
-## Testing
-
-```bash
-pytest tests/ -v
-```
-
-## Development
-
-```bash
-# Install dev dependencies
-pip install -e ".[dev]"
-
-# Run tests with coverage
-pytest tests/ --cov=src
-
-# Format code
-black src/ tests/
-
-# Lint
-ruff src/ tests/
-```
-
-## License
-
-MIT
-
-## Documentation
-
-Full documentation available at [`/docs`](https://aj-geddes.github.io/toon-context-mcp)
+Distributed under the MIT License. See [`LICENSE`](LICENSE) for details.

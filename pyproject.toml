@@ -10,9 +10,10 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
-    {name = "TOON MCP Team"}
+    {name = "Vikyek", email = "vika.jedr@gmail.com"}
 ]
-keywords = ["mcp", "json", "compression", "ai", "tokens", "optimization"]
+keywords = ["mcp", "json", "compression", "ai", "tokens", "optimization", "toon"]
+urls = { Repository = "https://github.com/Vikyek/toon-mcp" }
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
