@@ -21,4 +21,7 @@ package() {
     python -m installer --destdir="$pkgdir" dist/*.whl
     install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
     install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    if [ -f "man1/$pkgname.1" ]; then
+        install -Dm644 "man1/$pkgname.1" "$pkgdir/usr/share/man/man1/$pkgname.1"
+    fi
 }
