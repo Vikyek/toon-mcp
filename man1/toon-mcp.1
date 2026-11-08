@@ -1,19 +1,24 @@
-.TH TOON-MCP 1 "March 2026" "toon-mcp 1.0.0" "User Commands"
+.TH TOON-MCP 1 "November 2026" "toon-mcp 1.0.0" "User Commands"
 .SH NAME
-toon-mcp \- FastMCP server for Token-Optimized Object Notation (TOON)
+toon-mcp-server, toon-mcp \- FastMCP server for Token-Optimized Object Notation (TOON)
 .SH SYNOPSIS
-.B toon-mcp
+.B toon-mcp-server
 [\fIOPTIONS\fR]
 .SH DESCRIPTION
-.B toon-mcp
-is a pure Python FastMCP server providing high-efficiency Token-Optimized Object Notation (TOON) compression, decompression, pattern analysis, and token savings metrics for LLM contexts.
+.B toon-mcp-server
+is a pure Python FastMCP server providing high-efficiency Token-Optimized Object
+Notation (TOON) compression, decompression, pattern analysis, and token savings
+metrics for LLM contexts over standard input/output.
+.PP
+For automatic terminal paste compression in interactive CLI tools, see
+.BR toon-wrap (1).
 .SH OPTIONS
 .TP
 .BR \-h ", " \-\-help
-Show summary of options.
+Show summary of options and exit.
 .TP
-.BR \-\-version
-Show version information.
+.BR \-V ", " \-\-version
+Show version information and exit.
 .SH SEE ALSO
 .BR toon-wrap (1),
 .BR mcp (1)

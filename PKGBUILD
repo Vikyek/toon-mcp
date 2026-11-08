@@ -2,7 +2,7 @@
 pkgname=toon-mcp
 pkgver=1.0.0
 pkgrel=1
-pkgdesc="Pure Python FastMCP Server for Token-Optimized Object Notation (TOON) JSON payload compression"
+pkgdesc="Pure Python FastMCP Server and PTY paste wrapper for Token-Optimized Object Notation (TOON) payload compression"
 arch=('any')
 url="https://github.com/Vikyek/toon-mcp"
 license=('MIT')

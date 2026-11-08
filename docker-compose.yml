@@ -28,7 +28,7 @@ services:
 
     # Labels for organization
     labels:
-      - "com.toon-mcp.description=TOON MCP Server for token optimization"
+      - "com.toon-mcp.description=TOON MCP Server and paste wrapper for token optimization"
       - "com.toon-mcp.version=1.0.0"
 
     # Health check

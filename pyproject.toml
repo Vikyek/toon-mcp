@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "toon-mcp-server"
 version = "1.0.0"
-description = "Token-Optimized Object Notation MCP Server for efficient AI context management"
+description = "Token-Optimized Object Notation MCP server and PTY paste wrapper for efficient AI context management"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}

@@ -158,6 +158,31 @@ def test_parser_remainder_and_flags() -> None:
     assert args.command == ["--", "agy", "-c"]
 
 
+def test_cli_entrypoints_help_and_version() -> None:
+    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    env = os.environ.copy()
+    env["PYTHONPATH"] = repo_root + (":" + env["PYTHONPATH"] if "PYTHONPATH" in env else "")
+
+    for mod in ("src.server", "src.paste_wrapper"):
+        res_help = subprocess.run(
+            [sys.executable, "-m", mod, "--help"],
+            capture_output=True,
+            text=True,
+            env=env,
+        )
+        assert res_help.returncode == 0
+        assert "usage:" in res_help.stdout.lower()
+
+        res_ver = subprocess.run(
+            [sys.executable, "-m", mod, "--version"],
+            capture_output=True,
+            text=True,
+            env=env,
+        )
+        assert res_ver.returncode == 0
+        assert "1.0.0" in res_ver.stdout or "1.0.0" in res_ver.stderr
+
+
 def _run_in_pty(cmd: list[str], paste_payload: bytes, extra_env: dict[str, str] | None = None) -> tuple[int, bytes]:
     """Spawn cmd inside an outer PTY, send bracketed paste, return (exitcode, child_output)."""
     master_fd, slave_fd = pty.openpty()

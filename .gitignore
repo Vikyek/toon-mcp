@@ -46,3 +46,7 @@ Thumbs.db
 .projectmem/watch.log
 .projectmem/structure.json
 .codegraph/
+
+# Track repository guidelines
+!AGENTS.md
+!GEMINI.md

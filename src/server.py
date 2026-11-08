@@ -6,7 +6,8 @@ Model Context Protocol server for TOON conversions.
 import asyncio
 import json
 import logging
-from typing import Any, Dict, List, Optional
+import sys
+from typing import Any, Dict, List, Optional, Sequence
 
 from mcp.server import Server
 from mcp.types import (
@@ -428,11 +429,27 @@ TOON Format:
             )
 
 
-def main():
+def main(argv: Optional[Sequence[str]] = None) -> int:
     """Main entry point."""
+    import argparse
+    from . import __version__
+
+    parser = argparse.ArgumentParser(
+        prog="toon-mcp-server",
+        description="FastMCP Server for Token-Optimized Object Notation (TOON) JSON payload compression over stdio.",
+    )
+    parser.add_argument(
+        "-V",
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
+    )
+    parser.parse_args(argv)
+
     server = TOONMCPServer()
     asyncio.run(server.run())
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
