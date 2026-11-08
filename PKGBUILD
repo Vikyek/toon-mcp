@@ -24,4 +24,7 @@ package() {
     if [ -f "man1/$pkgname.1" ]; then
         install -Dm644 "man1/$pkgname.1" "$pkgdir/usr/share/man/man1/$pkgname.1"
     fi
+    if [ -f "man1/toon-wrap.1" ]; then
+        install -Dm644 "man1/toon-wrap.1" "$pkgdir/usr/share/man/man1/toon-wrap.1"
+    fi
 }

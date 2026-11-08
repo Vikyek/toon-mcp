@@ -1,0 +1,46 @@
+.TH TOON-WRAP 1 "November 2026" "toon-mcp 1.0.0" "User Commands"
+.SH NAME
+toon-wrap \- PTY bracketed-paste wrapper that converts pasted JSON to TOON
+.SH SYNOPSIS
+.B toon-wrap
+[\fIOPTIONS\fR]
+[\-\-]
+.I COMMAND
+[\fIARGS\fR...]
+.SH DESCRIPTION
+.B toon-wrap
+runs an interactive terminal command inside a transparent pseudoterminal (PTY)
+proxy and intercepts bracketed-paste sequences (\fBESC [ 200 ~\fR ... \fBESC [ 201 ~\fR).
+Standalone JSON payloads and embedded JSON objects or arrays inside pasted text
+are automatically converted to compact TOON format before reaching the wrapped
+application, provided the TOON output is smaller than the original JSON.
+.PP
+Non-interactive runs (when stdin or stdout is not a TTY) bypass the PTY and
+directly \fBexec\fR the target command.
+.SH OPTIONS
+.TP
+.BR \-\-no\-aggressive
+Disable aggressive auto-abbreviation of domain-specific keys (\fB_custom_keys\fR).
+.TP
+.BR \-\-pure\-only
+Convert only when the entire paste is valid JSON; ignore embedded JSON blocks.
+.TP
+.BI \-\-min\-chars " N"
+Minimum JSON block length in characters to consider for conversion (default: 60).
+.TP
+.BR \-h ", " \-\-help
+Show summary of options and exit.
+.TP
+.BR \-V ", " \-\-version
+Show version information and exit.
+.SH ENVIRONMENT
+.TP
+.B TOON_WRAP_DISABLE=1
+Bypass the PTY wrapper and execute the target command directly.
+.TP
+.B TOON_WRAP_MIN_CHARS
+Override the default minimum JSON block size in characters.
+.SH SEE ALSO
+.BR toon-mcp (1)
+.SH AUTHOR
+Maintained by Vikyek <https://github.com/Vikyek>.

@@ -5,6 +5,13 @@
 *.exe
 *.o
 *.so
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+build/
+dist/
+*.egg-info/
 
 # Packages
 *.7z
@@ -33,3 +40,9 @@ Thumbs.db
 *.njsproj
 *.sln
 *.swp
+
+.projectmem/events.jsonl
+.projectmem/watch.pid
+.projectmem/watch.log
+.projectmem/structure.json
+.codegraph/

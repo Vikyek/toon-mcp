@@ -1,20 +1,21 @@
 # ⚡ TOON MCP Server (`toon-mcp`)
 
-**Token-Optimized Object Notation (TOON)** FastMCP Server in Pure Python for efficient AI context management and LLM payload compression.
+**Token-Optimized Object Notation (TOON)** FastMCP Server and automatic PTY paste wrapper in Pure Python for efficient AI context management and LLM payload compression.
 
 ---
 
 ## 🚀 Overview
 
-`toon-mcp` is a lightweight, zero-node Model Context Protocol (MCP) server written entirely in Python. It automatically converts verbose JSON structures into **Token-Optimized Object Notation (TOON)**, achieving up to 60% token reduction in AI agent and tool-call contexts.
+`toon-mcp` is a lightweight, zero-node Model Context Protocol (MCP) server written entirely in Python. It converts verbose JSON structures into **Token-Optimized Object Notation (TOON)**, achieving up to 60% token reduction in AI agent and tool-call contexts, and includes `toon-wrap` to automatically compress JSON pasted into interactive CLI agents before tokens ever reach the model.
 
-> **Credits & Acknowledgments**: TOON format specification and concept inspired by [`aj-geddes/toon-context-mcp`](https://github.com/aj-geddes/toon-context-mcp). This repository provides a native Python port and FastMCP stdio server optimized for Antigravity (AGY) agents, Arch Linux environments, and resource-constrained environments.
+> **Credits & Acknowledgments**: TOON format specification and concept inspired by [`aj-geddes/toon-context-mcp`](https://github.com/aj-geddes/toon-context-mcp). This repository provides a native Python port, FastMCP stdio server, and PTY paste-hook wrapper optimized for Antigravity (AGY) agents and Linux environments.
 
 ---
 
 ## ✨ Features
 
 - **35–60% Payload Compression**: Reduces context window consumption on large structured JSON data.
+- **Automatic CLI Paste Hook (`toon-wrap`)**: Transparent PTY bracketed-paste wrapper that converts standalone or embedded JSON in pasted text into TOON before the wrapped CLI receives it.
 - **Smart Pattern Detection**: Automatically identifies schema patterns, array types, and string redundancies.
 - **Key Abbreviation & Reference System**: Automatically abbreviates common keys and deduplicates recurring objects.
 - **Pure Python Execution**: Zero Node.js / `node_modules` overhead — executes in under 50ms via standard Python virtualenvs.
@@ -24,33 +25,78 @@
 
 ## 🛠️ Installation
 
-### Standard Python Install
+### Quick Install Script
+
 ```bash
-pip install .
+./install.sh --symlink
 ```
 
-### Isolated Virtual Environment (Recommended for MCP Agents)
-```bash
-python3 -m venv ~/.local/share/toon-venv
-~/.local/share/toon-venv/bin/pip install -e .
-```
+Use `./install.sh --editable --symlink` during development, or `./install.sh --help` for custom `--venv` and `--bin-dir` paths.
+
+### Manual Installation
+
+1. Create an isolated Python virtual environment:
+   ```bash
+   python3 -m venv ~/.local/share/toon-venv
+   ```
+2. Install the package (use `-e .` for editable installs):
+   ```bash
+   ~/.local/share/toon-venv/bin/pip install .
+   ```
+3. *(Optional)* Symlink the executables onto your `PATH`:
+   ```bash
+   mkdir -p ~/.local/bin
+   ln -sf ~/.local/share/toon-venv/bin/toon-mcp-server ~/.local/bin/toon-mcp-server
+   ln -sf ~/.local/share/toon-venv/bin/toon-wrap ~/.local/bin/toon-wrap
+   ```
+4. *(Optional)* Install man pages system-wide or locally:
+   ```bash
+   install -Dm644 man1/toon-mcp.1 ~/.local/share/man/man1/toon-mcp.1
+   install -Dm644 man1/toon-wrap.1 ~/.local/share/man/man1/toon-wrap.1
+   ```
 
 ---
 
-## 💻 Integration with MCP Clients
+## 💻 Integration
 
-Add to your `mcp_config.json`:
+### MCP Clients (`mcp_config.json`)
 
 ```json
 {
   "mcpServers": {
     "toon": {
-      "command": "/usr/bin/toon-mcp-server",
+      "command": "~/.local/share/toon-venv/bin/toon-mcp-server",
       "args": []
     }
   }
 }
 ```
+
+### Automatic JSON Paste Hook (`toon-wrap`)
+
+Wrap any interactive terminal CLI (such as `agy`) so bracketed pastes containing standalone JSON or embedded JSON blocks are automatically converted to TOON when doing so saves characters:
+
+```bash
+toon-wrap -- /usr/bin/agy
+```
+
+Example wrapper script at `~/.local/bin/agy`:
+
+```bash
+#!/usr/bin/env bash
+if [ -t 0 ] && [ -t 1 ] && [ "${TOON_WRAP_DISABLE:-0}" != "1" ]; then
+    exec "$HOME/.local/share/toon-venv/bin/toon-wrap" -- /usr/bin/agy "$@"
+fi
+exec /usr/bin/agy "$@"
+```
+
+#### `toon-wrap` Options & Environment Variables
+
+- `--no-aggressive`: Disable domain-key auto-abbreviation (`_custom_keys`).
+- `--pure-only`: Only convert pastes whose entire text is valid JSON.
+- `--min-chars N`: Minimum JSON block size in characters to convert (default: `60`, or `TOON_WRAP_MIN_CHARS`).
+- `TOON_WRAP_DISABLE=1`: Bypass the PTY wrapper and execute the wrapped command directly.
+- Non-TTY invocations (piped stdin/stdout) automatically `exec` the target command without opening a PTY.
 
 ---
 

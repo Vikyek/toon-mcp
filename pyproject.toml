@@ -42,6 +42,7 @@ dev = [
 
 [project.scripts]
 toon-mcp-server = "src.server:main"
+toon-wrap = "src.paste_wrapper:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
