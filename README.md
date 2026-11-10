@@ -1,5 +1,8 @@
 # ⚡ TOON MCP Server (`toon-mcp`)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Sponsor Vikyek](https://img.shields.io/badge/Sponsor-GitHub-ea4aaa?logo=github-sponsors&logoColor=white)](https://github.com/sponsors/Vikyek)
+
 **Token-Optimized Object Notation (TOON)** FastMCP Server and automatic PTY paste wrapper in Pure Python for efficient AI context management and LLM payload compression.
 
 ---
@@ -108,6 +111,20 @@ exec /usr/bin/agy "$@"
 - `get_compression_strategy`: Returns the optimal compression strategy for a given data structure.
 - `calculate_savings`: Computes exact character and token savings.
 - `batch_convert`: Batch converts lists of JSON objects concurrently.
+
+---
+
+## 💖 Support & Sponsorship
+
+`toon-mcp` is developed and maintained independently by **[Vikyek](https://github.com/Vikyek)**.
+
+> ### 🎯 Active Sponsorship Goal: Monthly Living Essentials
+> **Target:** **2,710 PLN / ~$675 USD per month** (Rent & Utilities)  
+> Covering basic living essentials directly unlocks dedicated, sustainable full-time independent open-source engineering across AI agent middleware and performance utilities.
+
+If `toon-mcp` saves tokens, trims context bloat, or cuts LLM API costs in your workflow, consider supporting ongoing development:
+
+- **GitHub Sponsors**: [github.com/sponsors/Vikyek](https://github.com/sponsors/Vikyek)
 
 ---
 
