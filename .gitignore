@@ -41,10 +41,7 @@ Thumbs.db
 *.sln
 *.swp
 
-.projectmem/events.jsonl
-.projectmem/watch.pid
-.projectmem/watch.log
-.projectmem/structure.json
+.projectmem/
 .codegraph/
 
 # Track repository guidelines
