@@ -1,0 +1,23 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Vikyek/toon-mcp",
+  "title": "TOON MCP Server",
+  "description": "TOON MCP server and CLI paste wrapper for token-efficient AI context management",
+  "websiteUrl": "https://github.com/Vikyek/toon-mcp",
+  "repository": {
+    "url": "https://github.com/Vikyek/toon-mcp",
+    "source": "github",
+    "id": "1335601519"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "toon-mcp-server",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

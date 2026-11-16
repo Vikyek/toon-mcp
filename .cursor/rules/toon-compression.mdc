@@ -1,0 +1,13 @@
+---
+description: Use TOON (Token-Optimized Object Notation) MCP tools for compressing structured JSON payloads to save context tokens.
+alwaysApply: true
+---
+
+# TOON JSON Token Compression
+
+Always optimize JSON data structures using the `toon` MCP server before consuming or storing large payloads in context:
+
+- **JSON Ingestion**: When reading, passing, or analyzing non-manifest structured JSON (APIs, logs, database queries, bulk datasets), compress payloads via `convert_to_toon` or check compression ratios with `analyze_patterns`.
+- **Round-Trip Fidelity**: Restore TOON structures to standard JSON via `convert_to_json` whenever strict JSON output or serialization is required by external tools or files.
+- **Batch Processing**: Use `batch_convert` for arrays or bulk JSON entities to maximize token savings (35–60% reduction).
+- **Exceptions**: Do not compress files that must remain exact JSON on disk (package manifests, configuration files, `.json` source files being edited).

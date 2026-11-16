@@ -1,0 +1,10 @@
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
+
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+  commandFunction:
+    |-
+    (config) => ({ command: 'toon-mcp-server', args: [] })
